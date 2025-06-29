@@ -10,7 +10,7 @@ userRoute.post("/signup",function(req,res){ // no need of /user now
     })
 })
 
-userRoute.post("signin",function(req,res){
+userRoute.post("/signin",function(req,res){
     res.json({
         message: "signin endpoint"
     })
