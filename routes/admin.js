@@ -42,19 +42,20 @@ adminRouter.post("/signin", async function(req,res){
 })
 
 adminRouter.post("/course",adminMiddleware, async function(req,res){
-    const adminId = req.useId
+    const adminId = req.userId
     
     const {title, description, imageUrl, price} = req.body
-    await courseModel.create({
+    const course = await courseModel.create({
         title, description, imageUrl, price, creatorId: adminId
     })
 
     res.json({
-        message: "Couser created",
+        message: "Course created",
         courseId : course._id
     })
 })
 adminRouter.put("/course",function(req,res){
+
     res.json({
         message: "signin endpoint"
     })
