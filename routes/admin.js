@@ -1,7 +1,8 @@
 const {Router} = require('express')
 const adminRouter = Router()
-const {adminModel} = require('../db')
+const {adminModel, courseModel} = require('../db')
 const jwt = require("jsonwebtoken")
+const { adminMiddleware } = require('../miiddleware/admin')
 const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD
 adminRouter.post("/signup",async function(req,res){ // no need of /user now
      const { email, password, firstName, lastName } = req.body; // Todo -> zod validation
@@ -40,9 +41,17 @@ adminRouter.post("/signin", async function(req,res){
     }
 })
 
-adminRouter.post("/course",function(req,res){
+adminRouter.post("/course",adminMiddleware, async function(req,res){
+    const adminId = req.useId
+    
+    const {title, description, imageUrl, price} = req.body
+    await courseModel.create({
+        title, description, imageUrl, price, creatorId: adminId
+    })
+
     res.json({
-        message: "signin endpoint"
+        message: "Couser created",
+        courseId : course._id
     })
 })
 adminRouter.put("/course",function(req,res){

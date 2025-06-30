@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const uri = process.env.MONGO_URL
+console.log(process.env.JWT_USER_PASSWORD);
+
 
 const { userRoute } = require('./routes/user')
 const { courseRoute } = require('./routes/course')
