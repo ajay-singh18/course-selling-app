@@ -1,5 +1,9 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+require('dotenv').config()
+const uri = process.env.MONGO_URL
+
 
 const { userRoute } = require('./routes/user')
 const { courseRoute } = require('./routes/course')
@@ -11,5 +15,10 @@ app.use("/user",userRoute)
 app.use("/course", courseRoute)
 app.use("/admin",adminRouter)
 
-
-app.listen(3000)
+async function main(){
+   await mongoose.connect(uri)
+   console.log('URL is : ', uri);
+    app.listen(3000)
+console.log("listening in port 3000") 
+}
+main()
